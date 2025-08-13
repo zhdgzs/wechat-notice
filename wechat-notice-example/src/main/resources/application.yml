@@ -1,0 +1,54 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+spring:
+  application:
+    name: wechat-notice-example
+
+# 微信通知配置
+wechat:
+  notice:
+    enabled: true
+    default-app: prod
+    portal:
+      enabled: true
+      path: /wx/cp/portal
+    # API配置
+    api:
+      # 企业微信API基础URL，可配置为代理地址
+      base-url: https://qyapi.weixin.qq.com
+      # 连接超时时间（毫秒）
+      connect-timeout: 10000
+      # 读取超时时间（毫秒）
+      read-timeout: 30000
+      # 是否启用重试机制
+      retry-enabled: true
+      # 重试次数
+      retry-count: 3
+      # 代理配置示例（如果需要代理访问）
+      # base-url: http://your-proxy.com/wechat-api
+    apps:
+      # 应用1
+      wePayMsg:
+        corp-id: wwa3b51wed46779f20  # 替换为实际的企业ID
+        secret: 7Y4QtKd0soQ0ht81Q    # 替换为实际的应用Secret
+        agent-id: 1000005           # 替换为实际的应用ID
+        token: 6BJJng423Z44n3     # 替换为实际的Token
+        aes-key: GK5NDnc4324325f2rsNs4brgfaVhpmlS4cKEp  # 替换为实际的AESKey
+      # 应用2
+      test:
+        corp-id: ww987654321fedcba  # 替换为实际的企业ID
+        secret: test-secret-here    # 替换为实际的应用Secret
+        agent-id: 1000002          # 替换为实际的应用ID
+        token: test-token-here     # 替换为实际的Token
+        aes-key: test-aes-key-here # 替换为实际的AESKey
+
+# 日志配置
+logging:
+  level:
+    com.wechat.notice: DEBUG
+    root: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
