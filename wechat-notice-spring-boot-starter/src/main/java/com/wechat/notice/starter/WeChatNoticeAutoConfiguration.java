@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.wechat.notice.client.WeChatApiClient;
 import com.wechat.notice.client.WeChatTokenManager;
 import com.wechat.notice.config.WeChatNoticeProperties;
+import com.wechat.notice.starter.config.SpringWeChatNoticeProperties;
 import com.wechat.notice.service.WeChatAppConfigService;
 import com.wechat.notice.service.WeChatNoticeService;
 import com.wechat.notice.service.impl.WeChatAppConfigServiceImpl;
@@ -32,13 +33,13 @@ import java.util.concurrent.TimeUnit;
 /**
  * 微信通知自动配置类
  * 
- * @author WeChat Notice
+ * @author fyf
  */
 @Slf4j
 @Configuration
 @ConditionalOnClass({WeChatNoticeService.class, ObjectMapper.class})
 @ConditionalOnWeChatNoticeEnabled
-@EnableConfigurationProperties(WeChatNoticeProperties.class)
+@EnableConfigurationProperties(SpringWeChatNoticeProperties.class)
 @AutoConfigureAfter(WebMvcAutoConfiguration.class)
 public class WeChatNoticeAutoConfiguration {
     
@@ -81,6 +82,15 @@ public class WeChatNoticeAutoConfiguration {
         
         log.debug("WeChat HttpClient配置完成");
         return httpClient;
+    }
+    
+    /**
+     * Core配置适配器
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public WeChatNoticeProperties weChatNoticeProperties(SpringWeChatNoticeProperties springProperties) {
+        return springProperties.toCoreProperties();
     }
     
     /**
@@ -137,10 +147,9 @@ public class WeChatNoticeAutoConfiguration {
     @ConditionalOnWeChatPortalEnabled
     @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
     @ConditionalOnMissingBean
-    public WeChatPortalController weChatPortalController(WeChatAppConfigService weChatAppConfigService,
-                                                         WeChatNoticeProperties properties) {
+    public WeChatPortalController weChatPortalController(WeChatAppConfigService weChatAppConfigService) {
         log.debug("WeChat PortalController配置完成");
-        return new WeChatPortalController(weChatAppConfigService, properties);
+        return new WeChatPortalController(weChatAppConfigService);
     }
     
     @PostConstruct

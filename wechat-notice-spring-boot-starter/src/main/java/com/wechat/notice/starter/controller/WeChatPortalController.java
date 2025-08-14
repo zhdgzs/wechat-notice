@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 /**
  * 微信Portal认证控制器
  * 
- * @author WeChat Notice
+ * @author fyf
  */
 @Slf4j
 @RestController

@@ -7,7 +7,7 @@ import java.lang.annotation.*;
 /**
  * 微信Portal功能启用条件注解
  * 
- * @author WeChat Notice
+ * @author fyf
  */
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
