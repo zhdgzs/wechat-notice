@@ -142,6 +142,75 @@ public class NotificationController {
     }
     
     /**
+     * 发送图文消息
+     */
+    @PostMapping("/send/news")
+    public String sendNews(@RequestParam String title,
+                          @RequestParam String description,
+                          @RequestParam String url,
+                          @RequestParam String picUrl,
+                          @RequestParam String toUser,
+                          @RequestParam(required = false) String appName) {
+        try {
+            WeChatMessage message = WeChatMessageBuilder.news()
+                .addArticle(title, description, url, picUrl)
+                .toUser(toUser)
+                .build();
+                
+            WeChatMessageResult result;
+            if (appName != null) {
+                result = weChatNoticeService.sendMessage(message, appName);
+            } else {
+                result = weChatNoticeService.sendMessage(message);
+            }
+            
+            if (result.isSuccess()) {
+                return "图文消息发送成功，消息ID: " + result.getMsgId();
+            } else {
+                return "图文消息发送失败: " + result.getErrMsg();
+            }
+        } catch (Exception e) {
+            log.error("发送图文消息异常", e);
+            return "发送异常: " + e.getMessage();
+        }
+    }
+    
+    /**
+     * 发送TextCard消息
+     */
+    @PostMapping("/send/textcard")
+    public String sendTextCard(@RequestParam String title,
+                              @RequestParam String description,
+                              @RequestParam String url,
+                              @RequestParam String toUser,
+                              @RequestParam(required = false) String appName) {
+        try {
+            WeChatMessage message = WeChatMessageBuilder.textCard()
+                .title(title)
+                .description(description)
+                .url(url)
+                .toUser(toUser)
+                .build();
+                
+            WeChatMessageResult result;
+            if (appName != null) {
+                result = weChatNoticeService.sendMessage(message, appName);
+            } else {
+                result = weChatNoticeService.sendMessage(message);
+            }
+            
+            if (result.isSuccess()) {
+                return "TextCard消息发送成功，消息ID: " + result.getMsgId();
+            } else {
+                return "TextCard消息发送失败: " + result.getErrMsg();
+            }
+        } catch (Exception e) {
+            log.error("发送TextCard消息异常", e);
+            return "发送异常: " + e.getMessage();
+        }
+    }
+
+    /**
      * 发送全员通知
      */
     @PostMapping("/send/all")
