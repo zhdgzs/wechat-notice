@@ -25,9 +25,9 @@ public class NotificationController {
      * 发送简单文本消息
      */
     @PostMapping("/send/text")
-    public String sendText(@RequestParam String content, 
-                          @RequestParam String toUser,
-                          @RequestParam(required = false) String appName) {
+    public String sendText(@RequestParam("content") String content, 
+                          @RequestParam("toUser") String toUser,
+                          @RequestParam(value = "appName", required = false) String appName) {
         try {
             WeChatMessageResult result;
             if (appName != null) {
@@ -51,9 +51,9 @@ public class NotificationController {
      * 发送Markdown消息
      */
     @PostMapping("/send/markdown")
-    public String sendMarkdown(@RequestParam String content, 
-                              @RequestParam String toUser,
-                              @RequestParam(required = false) String appName) {
+    public String sendMarkdown(@RequestParam("content") String content, 
+                              @RequestParam("toUser") String toUser,
+                              @RequestParam(value = "appName", required = false) String appName) {
         try {
             WeChatMessageResult result;
             if (appName != null) {
@@ -72,85 +72,17 @@ public class NotificationController {
             return "发送异常: " + e.getMessage();
         }
     }
-    
-    /**
-     * 发送复杂消息
-     */
-    @PostMapping("/send/complex")
-    public String sendComplexMessage(@RequestParam String title,
-                                   @RequestParam String description,
-                                   @RequestParam String url,
-                                   @RequestParam String toUser,
-                                   @RequestParam(required = false) String appName) {
-        try {
-            WeChatMessage message = WeChatMessage.builder()
-                .msgType("textcard")
-                .title(title)
-                .description(description)
-                .url(url)
-                .btnTxt("查看详情")
-                .toUser(toUser)
-                .build();
-                
-            WeChatMessageResult result;
-            if (appName != null) {
-                result = weChatNoticeService.sendMessage(message, appName);
-            } else {
-                result = weChatNoticeService.sendMessage(message);
-            }
-            
-            if (result.isSuccess()) {
-                return "复杂消息发送成功，消息ID: " + result.getMsgId();
-            } else {
-                return "复杂消息发送失败: " + result.getErrMsg();
-            }
-        } catch (Exception e) {
-            log.error("发送复杂消息异常", e);
-            return "发送异常: " + e.getMessage();
-        }
-    }
-    
-    /**
-     * 使用构建器发送消息
-     */
-    @PostMapping("/send/builder")
-    public String sendBuilderMessage(@RequestParam String content,
-                                   @RequestParam String users,
-                                   @RequestParam(required = false) String appName) {
-        try {
-            WeChatMessage message = WeChatMessageBuilder.text()
-                .content(content)
-                .toUser(users)
-                .build();
-                
-            WeChatMessageResult result;
-            if (appName != null) {
-                result = weChatNoticeService.sendMessage(message, appName);
-            } else {
-                result = weChatNoticeService.sendMessage(message);
-            }
-            
-            if (result.isSuccess()) {
-                return "构建器消息发送成功，消息ID: " + result.getMsgId();
-            } else {
-                return "构建器消息发送失败: " + result.getErrMsg();
-            }
-        } catch (Exception e) {
-            log.error("发送构建器消息异常", e);
-            return "发送异常: " + e.getMessage();
-        }
-    }
-    
+
     /**
      * 发送图文消息
      */
     @PostMapping("/send/news")
-    public String sendNews(@RequestParam String title,
-                          @RequestParam String description,
-                          @RequestParam String url,
-                          @RequestParam String picUrl,
-                          @RequestParam String toUser,
-                          @RequestParam(required = false) String appName) {
+    public String sendNews(@RequestParam("title") String title,
+                          @RequestParam("description") String description,
+                          @RequestParam("url") String url,
+                          @RequestParam("picUrl") String picUrl,
+                          @RequestParam("toUser") String toUser,
+                          @RequestParam(value = "appName", required = false) String appName) {
         try {
             WeChatMessage message = WeChatMessageBuilder.news()
                 .addArticle(title, description, url, picUrl)
@@ -179,11 +111,11 @@ public class NotificationController {
      * 发送TextCard消息
      */
     @PostMapping("/send/textcard")
-    public String sendTextCard(@RequestParam String title,
-                              @RequestParam String description,
-                              @RequestParam String url,
-                              @RequestParam String toUser,
-                              @RequestParam(required = false) String appName) {
+    public String sendTextCard(@RequestParam("title") String title,
+                              @RequestParam("description") String description,
+                              @RequestParam("url") String url,
+                              @RequestParam("toUser") String toUser,
+                              @RequestParam(value = "appName", required = false) String appName) {
         try {
             WeChatMessage message = WeChatMessageBuilder.textCard()
                 .title(title)
@@ -214,8 +146,8 @@ public class NotificationController {
      * 发送全员通知
      */
     @PostMapping("/send/all")
-    public String sendToAll(@RequestParam String content,
-                           @RequestParam(required = false) String appName) {
+    public String sendToAll(@RequestParam("content") String content,
+                           @RequestParam(value = "appName", required = false) String appName) {
         try {
             WeChatMessage message = WeChatMessageBuilder.text()
                 .content(content)

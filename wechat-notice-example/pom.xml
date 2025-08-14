@@ -3,30 +3,41 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
          http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>wechat-notice</artifactId>
-        <groupId>com.wechat</groupId>
-        <version>1.0.0</version>
-    </parent>
     <modelVersion>4.0.0</modelVersion>
-
+    <groupId>com.wechat</groupId>
     <artifactId>wechat-notice-example</artifactId>
+    <version>1.0.0</version>
+
     <name>WeChat Notice Example</name>
     <description>企业微信通知使用示例</description>
 
     <properties>
-        <maven.install.skip>true</maven.install.skip>
-        <maven.deploy.skip>true</maven.deploy.skip>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <spring-boot.version>3.2.10</spring-boot.version>
     </properties>
+
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <!-- WeChat Notice Starter -->
         <dependency>
             <groupId>com.wechat</groupId>
-            <artifactId>wechat-notice-spring-boot-starter</artifactId>
-            <version>${project.version}</version>
+            <artifactId>wechat-notice-spring-boot-3-starter</artifactId>
+            <version>1.0.0</version>
         </dependency>
-        
+
         <!-- Spring Boot Web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -39,13 +50,20 @@
             <optional>true</optional>
         </dependency>
     </dependencies>
-    
+
     <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring-boot.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <configuration>
                     <excludes>
                         <exclude>
