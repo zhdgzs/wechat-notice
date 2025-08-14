@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * 企业微信通知示例应用
  * 
- * @author WeChat Notice
+ * @author fyf
  */
 @SpringBootApplication
 public class WeChatNoticeExampleApplication {

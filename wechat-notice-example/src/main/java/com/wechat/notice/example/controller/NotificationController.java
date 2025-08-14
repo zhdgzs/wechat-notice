@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 /**
  * 通知控制器示例
  * 
- * @author WeChat Notice
+ * @author fyf
  */
 @Slf4j
 @RestController

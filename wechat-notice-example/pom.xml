@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
          http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>wechat-notice-parent</artifactId>
+        <artifactId>wechat-notice</artifactId>
         <groupId>com.wechat</groupId>
         <version>1.0.0</version>
     </parent>
@@ -13,6 +13,11 @@
     <artifactId>wechat-notice-example</artifactId>
     <name>WeChat Notice Example</name>
     <description>企业微信通知使用示例</description>
+
+    <properties>
+        <maven.install.skip>true</maven.install.skip>
+        <maven.deploy.skip>true</maven.deploy.skip>
+    </properties>
 
     <dependencies>
         <!-- WeChat Notice Starter -->
