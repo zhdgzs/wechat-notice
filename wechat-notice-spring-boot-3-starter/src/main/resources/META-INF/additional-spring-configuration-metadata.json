@@ -1,0 +1,141 @@
+{
+  "groups": [
+    {
+      "name": "wechat.notice",
+      "type": "com.wechat.notice.config.WeChatNoticeProperties",
+      "description": "微信通知配置属性."
+    },
+    {
+      "name": "wechat.notice.portal",
+      "type": "com.wechat.notice.config.WeChatNoticeProperties$Portal",
+      "sourceType": "com.wechat.notice.config.WeChatNoticeProperties",
+      "description": "微信Portal相关配置."
+    },
+    {
+      "name": "wechat.notice.apps",
+      "type": "java.util.Map<java.lang.String,com.wechat.notice.config.WeChatNoticeProperties$AppConfig>",
+      "sourceType": "com.wechat.notice.config.WeChatNoticeProperties",
+      "description": "微信应用配置映射."
+    },
+    {
+      "name": "wechat.notice.api",
+      "type": "com.wechat.notice.config.WeChatNoticeProperties$Api",
+      "sourceType": "com.wechat.notice.config.WeChatNoticeProperties",
+      "description": "企业微信API相关配置."
+    }
+  ],
+  "properties": [
+    {
+      "name": "wechat.notice.enabled",
+      "type": "java.lang.Boolean",
+      "description": "是否启用微信通知功能.",
+      "defaultValue": true
+    },
+    {
+      "name": "wechat.notice.default-app",
+      "type": "java.lang.String",
+      "description": "默认应用名称.",
+      "defaultValue": "default"
+    },
+    {
+      "name": "wechat.notice.portal.enabled",
+      "type": "java.lang.Boolean",
+      "description": "是否启用Portal控制器.",
+      "defaultValue": true
+    },
+    {
+      "name": "wechat.notice.portal.path",
+      "type": "java.lang.String",
+      "description": "Portal接口路径前缀.",
+      "defaultValue": "/wx/cp/portal"
+    },
+    {
+      "name": "wechat.notice.apps.*",
+      "type": "com.wechat.notice.config.WeChatNoticeProperties$AppConfig",
+      "description": "微信应用配置，支持配置多个应用."
+    },
+    {
+      "name": "wechat.notice.apps.*.corp-id",
+      "type": "java.lang.String",
+      "description": "企业ID."
+    },
+    {
+      "name": "wechat.notice.apps.*.secret",
+      "type": "java.lang.String",
+      "description": "应用Secret."
+    },
+    {
+      "name": "wechat.notice.apps.*.agent-id",
+      "type": "java.lang.Integer",
+      "description": "应用ID."
+    },
+    {
+      "name": "wechat.notice.apps.*.token",
+      "type": "java.lang.String",
+      "description": "Token，用于接口验证."
+    },
+    {
+      "name": "wechat.notice.apps.*.aes-key",
+      "type": "java.lang.String",
+      "description": "AES Key，用于消息加解密."
+    },
+    {
+      "name": "wechat.notice.api.base-url",
+      "type": "java.lang.String",
+      "description": "企业微信API基础URL，可配置为代理地址.",
+      "defaultValue": "https://qyapi.weixin.qq.com"
+    },
+    {
+      "name": "wechat.notice.api.connect-timeout",
+      "type": "java.lang.Integer",
+      "description": "连接超时时间（毫秒）.",
+      "defaultValue": 10000
+    },
+    {
+      "name": "wechat.notice.api.read-timeout",
+      "type": "java.lang.Integer",
+      "description": "读取超时时间（毫秒）.",
+      "defaultValue": 30000
+    },
+    {
+      "name": "wechat.notice.api.retry-enabled",
+      "type": "java.lang.Boolean",
+      "description": "是否启用重试机制.",
+      "defaultValue": true
+    },
+    {
+      "name": "wechat.notice.api.retry-count",
+      "type": "java.lang.Integer",
+      "description": "重试次数.",
+      "defaultValue": 3
+    }
+  ],
+  "hints": [
+    {
+      "name": "wechat.notice.portal.path",
+      "values": [
+        {
+          "value": "/wx/cp/portal",
+          "description": "默认Portal路径."
+        },
+        {
+          "value": "/wechat/portal",
+          "description": "简化Portal路径."
+        }
+      ]
+    },
+    {
+      "name": "wechat.notice.api.base-url",
+      "values": [
+        {
+          "value": "https://qyapi.weixin.qq.com",
+          "description": "企业微信官方API地址."
+        },
+        {
+          "value": "http://your-proxy.com",
+          "description": "代理服务器地址."
+        }
+      ]
+    }
+  ]
+}

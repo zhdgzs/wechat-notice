@@ -29,6 +29,7 @@
     <modules>
         <module>wechat-notice-core</module>
         <module>wechat-notice-spring-boot-starter</module>
+        <module>wechat-notice-spring-boot-3-starter</module>
         <module>wechat-notice-example</module>
     </modules>
 
