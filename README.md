@@ -1,25 +1,48 @@
-# WeChat Notice - 企业微信通知组件
+# WeChat Notice - 企业微信消息通知组件
 
-一个轻量级、易集成的企业微信消息发送SpringBoot Starter组件。
+[![Maven Central](https://img.shields.io/badge/maven--central-1.0.0-blue.svg)](https://search.maven.org/artifact/com.wechat/wechat-notice-spring-boot-starter)
+[![Java Version](https://img.shields.io/badge/Java-8%2B-brightgreen.svg)](https://www.oracle.com/java/technologies/)
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-2.x%20%7C%203.x-brightgreen.svg)](https://spring.io/projects/spring-boot)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
+> 🚀 **开箱即用的企业微信消息推送组件**，让应用监控、告警、通知触手可及
+
+基于企业微信应用消息API的轻量级通知组件，支持多种消息类型，完美集成Spring Boot生态。通过企业微信应用发送消息，用户可在微信中直接接收，无需额外安装客户端。
+
+## 🎯 核心优势
+
+- **🔧 开箱即用** - Spring Boot Starter，零配置启动
+- **🎨 消息丰富** - 支持文本、Markdown、图片、卡片等多种消息格式  
+- **⚡ 高性能** - 内置连接池、Token自动管理、故障重试机制
+- **🔒 企业级** - 支持多应用配置、API验证、消息加密
+- **🌐 网络友好** - 可配置代理，适应各种网络环境
+- **📱 移动优先** - 消息直达微信，随时随地接收通知
+
+## 💡 典型场景
+
+- **系统监控** - 服务异常、性能告警、业务指标监控
+- **业务通知** - 订单状态、支付回调、审核结果通知  
+- **运维告警** - 服务宕机、资源不足、部署状态推送
+- **个人项目** - 任务完成、数据采集、定时任务结果通知
 
 ## ✨ 特性
 
-- 🚀 **开箱即用**: SpringBoot Starter，一行配置即可使用
+- 🚀 **开箱即用**: SpringBoot Starter，简单配置即可使用
 - 🔧 **多应用支持**: 支持配置多个企业微信应用，灵活切换
 - 🔐 **API验证**: 内置Portal控制器，自动处理微信接口验证
 - 📱 **多消息类型**: 支持文本、图片、Markdown、卡片等多种消息类型
 - 🏗️ **Builder模式**: 简洁的消息构建器，优雅构建复杂消息
 - ⚡ **高性能**: HTTP连接池、Token自动缓存和刷新
-- 🌐 **代理支持**: 可配置API代理地址，解决网络访问问题
-- 📝 **IDE友好**: 完整的配置智能提示和文档
+- 🌐 **代理支持**: 可配置API代理地址，解决动态IP需要频繁配置企业微信IP白名单，和内网网络访问问题
 
 ## 📦 项目结构
 
 ```
-wechat-notice-parent/
-├── wechat-notice-core/                    # 核心功能模块
-├── wechat-notice-spring-boot-starter/     # SpringBoot启动器
-└── wechat-notice-example/                 # 使用示例
+wechat-notice/
+├── wechat-notice-core/                         # 核心功能模块
+├── wechat-notice-spring-boot-starter/          # Spring Boot 2.x 启动器  
+├── wechat-notice-spring-boot-3-starter/        # Spring Boot 3.x 启动器
+└── wechat-notice-example/                      # 使用示例
 ```
 
 ## 🛠️ 技术栈
@@ -34,10 +57,22 @@ wechat-notice-parent/
 
 ### 1. 添加依赖
 
+#### Spring Boot 2.x
+
 ```xml
 <dependency>
     <groupId>com.wechat</groupId>
     <artifactId>wechat-notice-spring-boot-starter</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
+
+#### Spring Boot 3.x
+
+```xml
+<dependency>
+    <groupId>com.wechat</groupId>
+    <artifactId>wechat-notice-spring-boot-3-starter</artifactId>
     <version>1.0.0</version>
 </dependency>
 ```
@@ -224,14 +259,16 @@ wechat:
 
 ## 📊 消息类型支持
 
-| 消息类型 | 说明 | 构建器支持 |
-|---------|------|----------|
-| text | 文本消息 | ✅ |
-| image | 图片消息 | ✅ |
-| markdown | Markdown消息 | ✅ |
-| textcard | 文本卡片消息 | ❌ |
-| news | 图文消息 | ❌ |
-| file | 文件消息 | ❌ |
+| 消息类型 | 说明 | 构建器支持 | 示例用途      |
+|---------|------|----------|-----------|
+| text | 文本消息 | ✅ | 简单通知、状态更新 |
+| markdown | Markdown消息 | ✅ | 格式化通知、文档  |
+| textcard | 文本卡片消息 | ✅ | 任务提醒、链接分享 |
+| news | 图文消息 | ✅ | 新闻推送、公告   |
+| file | 文件消息 | ❌ | 暂不支持 |
+| image | 图片消息 | ❌ | 暂不支持      |
+
+因为文件和图片消息，需要先上传文件到企业微信的临时素材接口，所以暂不支持发送文件、图片消息。
 
 ## 🔧 高级功能
 
@@ -259,66 +296,53 @@ try {
 }
 ```
 
-## 🧪 运行示例
+## ⚡ 性能优化与最佳实践
 
-1. 克隆项目并进入目录：
-```bash
-git clone <repository-url>
-cd wechat-notice-parent
+### 连接池配置
+组件内置HTTP连接池，默认配置已优化，支持以下配置调整：
+
+```yaml
+wechat:
+  notice:
+    api:
+      connect-timeout: 5000      # 连接超时（毫秒）
+      read-timeout: 30000        # 读取超时（毫秒）
+      retry-count: 3             # 重试次数
 ```
 
-2. 编译项目：
-```bash
-mvn clean install
+### Token缓存机制
+- Access Token自动缓存，有效期内复用
+- 过期前自动刷新，避免请求失败
+- 支持多应用独立Token管理
+
+### 批量发送建议
+- 单次批量发送建议不超过100条消息
+- 大量消息可分批处理，避免API限流
+- 异步处理提升用户体验
+
+### 错误处理最佳实践
+
+```java
+@Service
+public class NotificationService {
+    
+    @Autowired
+    private WeChatNoticeService weChatNoticeService;
+    
+    @Retryable(maxAttempts = 3)
+    public void sendNotificationWithRetry(String message, String user) {
+        try {
+            WeChatMessageResult result = weChatNoticeService.sendText(message, user);
+            if (!result.isSuccess()) {
+                throw new RuntimeException("发送失败: " + result.getErrMsg());
+            }
+        } catch (WeChatNoticeException e) {
+            log.error("微信通知发送异常", e);
+            throw e;
+        }
+    }
+}
 ```
-
-3. 配置企业微信参数：
-编辑 `wechat-notice-example/src/main/resources/application.yml`，填入实际的企业微信配置。
-
-4. 运行示例：
-```bash
-cd wechat-notice-example
-mvn spring-boot:run
-```
-
-5. 测试API：
-```bash
-# 发送文本消息
-curl -X POST "http://localhost:8080/api/notification/send/text" \
-  -d "content=测试消息&toUser=@all"
-
-# 发送Markdown消息
-curl -X POST "http://localhost:8080/api/notification/send/markdown" \
-  -d "content=# 测试标题\n**内容**：这是测试&toUser=@all"
-```
-
-## 📝 开发说明
-
-### 构建项目
-
-```bash
-mvn clean install
-```
-
-### 运行测试
-
-```bash
-mvn test
-```
-
-### 打包发布
-
-```bash
-mvn clean package
-```
-
-## 🤝 贡献指南
-
-1. Fork 项目
-2. 创建特性分支 (`git checkout -b feature/AmazingFeature`)
-3. 提交更改 (`git commit -m 'Add some AmazingFeature'`)
-4. 推送到分支 (`git push origin feature/AmazingFeature`)
-5. 开启 Pull Request
 
 ## 📄 许可证
 
@@ -377,10 +401,31 @@ wechat:
 
 确保代理服务器能正确转发这些路径到 `https://qyapi.weixin.qq.com`。
 
+### 7. Spring Boot 2.x 和 3.x 如何选择？
+
+- **Spring Boot 2.x** 项目使用 `wechat-notice-spring-boot-starter`
+- **Spring Boot 3.x** 项目使用 `wechat-notice-spring-boot-3-starter`  
+- 两个版本功能完全一致，仅适配了不同的Spring Boot版本
+
+### 8. 如何在非Spring Boot项目中使用？
+
+可以直接使用 `wechat-notice-core` 模块：
+
+```xml
+<dependency>
+    <groupId>com.wechat</groupId>
+    <artifactId>wechat-notice-core</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
+
+然后手动配置和使用服务类，在 `wechat-notice-core` 模块的 `test` 包下有示例代码。
+
 ## 🔗 相关链接
 
 - [企业微信API文档](https://developer.work.weixin.qq.com/)
 - [Spring Boot官方文档](https://spring.io/projects/spring-boot)
+- [WxJava](https://github.com/Wechat-Group/WxJava)
 
 ---
 
