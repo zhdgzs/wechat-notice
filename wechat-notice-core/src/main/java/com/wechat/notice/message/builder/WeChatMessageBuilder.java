@@ -15,14 +15,21 @@ public class WeChatMessageBuilder {
     public static TextMessageBuilder text() {
         return new TextMessageBuilder();
     }
-    
+
     /**
-     * 创建图片消息构建器
+     * 创建文本卡片消息构建器
      */
-    public static ImageMessageBuilder image() {
-        return new ImageMessageBuilder();
+    public static TextCardMessageBuilder textCard() {
+        return new TextCardMessageBuilder();
     }
-    
+
+    /**
+     * 创建图文消息构建器
+     */
+    public static NewsMessageBuilder news() {
+        return new NewsMessageBuilder();
+    }
+
     /**
      * 创建Markdown消息构建器
      */

@@ -60,9 +60,46 @@ public class WeChatNoticeStandaloneTest {
     }
 
     @Test
-    public void testSendMessage() {
+    public void testSendTextMessage() {
         WeChatMessage message = WeChatMessageBuilder.text()
-                .content("这是一条测试消息")
+                .content("这是一条文本测试消息")
+                .toUser("@all")
+                .build();
+        weChatNoticeService.sendMessage(message);
+    }
+
+    @Test
+    public void testSendMarkdownMessage() {
+        // 微信不支持查看markdown消息
+        String markdown = "## 这是一条Markdown测试消息";
+
+        WeChatMessage message = WeChatMessageBuilder.markdown()
+                .content(markdown)
+                .toUser("@all")
+                .build();
+        weChatNoticeService.sendMessage(message);
+    }
+
+    @Test
+    public void testSendNewsMessage() {
+        WeChatMessage message = WeChatMessageBuilder.news()
+                .addArticle(
+                        "这是一条图文测试消息",
+                        "这是一条图文测试消息 描述",
+                        "https://www.baidu.com/",
+                        "https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png"
+                )
+                .toUser("@all")
+                .build();
+        weChatNoticeService.sendMessage(message);
+    }
+
+    @Test
+    public void testSendTextCardMessage() {
+        WeChatMessage message = WeChatMessageBuilder.textCard()
+                .title("这是一条TextCard测试消息")
+                .description("这是一条TextCard测试消息 描述")
+                .url("https://www.baidu.com/")
                 .toUser("@all")
                 .build();
         weChatNoticeService.sendMessage(message);

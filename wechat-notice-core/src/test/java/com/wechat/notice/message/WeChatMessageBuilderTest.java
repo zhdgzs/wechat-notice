@@ -47,16 +47,37 @@ public class WeChatMessageBuilderTest {
     }
     
     @Test
-    public void testImageMessageBuilder() {
-        WeChatMessage message = WeChatMessageBuilder.image()
-                .mediaId("test-media-id-123")
+    public void testTextCardMessageBuilder() {
+        WeChatMessage message = WeChatMessageBuilder.textCard()
+                .title("卡片标题")
+                .description("卡片描述")
+                .url("https://example.com")
+                .btnTxt("查看详情")
                 .toUser("user1")
                 .build();
         
         assertNotNull(message);
-        assertEquals(MessageType.IMAGE.getCode(), message.getMsgType());
-        assertEquals("test-media-id-123", message.getMediaId());
+        assertEquals(MessageType.TEXTCARD.getCode(), message.getMsgType());
+        assertEquals("卡片标题", message.getTitle());
+        assertEquals("卡片描述", message.getDescription());
+        assertEquals("https://example.com", message.getUrl());
+        assertEquals("查看详情", message.getBtnTxt());
         assertEquals("user1", message.getToUser());
+    }
+    
+    @Test
+    public void testNewsMessageBuilder() {
+        WeChatMessage message = WeChatMessageBuilder.news()
+                .addArticle("文章标题1", "文章描述1", "https://example.com/1", "https://example.com/pic1.jpg")
+                .addArticle("文章标题2", "文章描述2", "https://example.com/2", "https://example.com/pic2.jpg")
+                .toUser("user1")
+                .build();
+        
+        assertNotNull(message);
+        assertEquals(MessageType.NEWS.getCode(), message.getMsgType());
+        assertEquals("user1", message.getToUser());
+        assertNotNull(message.getExtra());
+        assertTrue(message.getExtra().containsKey("articles"));
     }
     
     @Test
@@ -107,12 +128,14 @@ public class WeChatMessageBuilderTest {
     @Test
     public void testMessageTypeEnum() {
         assertEquals("text", MessageType.TEXT.getCode());
-        assertEquals("image", MessageType.IMAGE.getCode());
+        assertEquals("textcard", MessageType.TEXTCARD.getCode());
+        assertEquals("news", MessageType.NEWS.getCode());
         assertEquals("markdown", MessageType.MARKDOWN.getCode());
         
         // 测试枚举的完整性
         assertNotNull(MessageType.valueOf("TEXT"));
-        assertNotNull(MessageType.valueOf("IMAGE"));
+        assertNotNull(MessageType.valueOf("TEXTCARD"));
+        assertNotNull(MessageType.valueOf("NEWS"));
         assertNotNull(MessageType.valueOf("MARKDOWN"));
     }
 }

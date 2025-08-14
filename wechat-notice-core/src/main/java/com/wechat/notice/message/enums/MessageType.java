@@ -1,10 +1,13 @@
 package com.wechat.notice.message.enums;
 
+import lombok.Getter;
+
 /**
  * 微信消息类型枚举
  * 
  * @author fyf
  */
+@Getter
 public enum MessageType {
     /**
      * 文本消息
@@ -63,12 +66,5 @@ public enum MessageType {
         this.code = code;
         this.description = description;
     }
-    
-    public String getCode() {
-        return code;
-    }
-    
-    public String getDescription() {
-        return description;
-    }
+
 }
