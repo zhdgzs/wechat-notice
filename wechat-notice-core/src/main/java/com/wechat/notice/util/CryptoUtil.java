@@ -16,7 +16,7 @@ import java.util.Map;
 /**
  * 加解密工具类
  * 
- * @author WeChat Notice
+ * @author fyf
  */
 public class CryptoUtil {
     

@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * 微信消息实体
  * 
- * @author WeChat Notice
+ * @author fyf
  */
 @Data
 @Builder

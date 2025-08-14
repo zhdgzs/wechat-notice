@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * 微信应用配置服务接口
  * 
- * @author WeChat Notice
+ * @author fyf
  */
 public interface WeChatAppConfigService {
     

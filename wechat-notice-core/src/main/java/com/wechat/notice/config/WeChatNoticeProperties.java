@@ -1,7 +1,6 @@
 package com.wechat.notice.config;
 
 import lombok.Data;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,10 +8,9 @@ import java.util.Map;
 /**
  * 微信通知配置属性
  * 
- * @author WeChat Notice
+ * @author fyf
  */
 @Data
-@ConfigurationProperties(prefix = "wechat.notice")
 public class WeChatNoticeProperties {
     
     /**

@@ -5,7 +5,7 @@ import com.wechat.notice.message.WeChatMessage;
 /**
  * 微信消息构建器工厂
  * 
- * @author WeChat Notice
+ * @author fyf
  */
 public class WeChatMessageBuilder {
     

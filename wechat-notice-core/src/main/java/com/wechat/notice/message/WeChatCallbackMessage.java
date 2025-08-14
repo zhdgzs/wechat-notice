@@ -5,7 +5,7 @@ import lombok.Data;
 /**
  * 微信回调消息
  * 
- * @author WeChat Notice
+ * @author fyf
  */
 @Data
 public class WeChatCallbackMessage {

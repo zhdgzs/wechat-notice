@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * 微信API响应实体
  * 
- * @author WeChat Notice
+ * @author fyf
  */
 @Data
 public class WeChatApiResponse {

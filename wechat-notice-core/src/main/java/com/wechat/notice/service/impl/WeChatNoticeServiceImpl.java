@@ -3,7 +3,6 @@ package com.wechat.notice.service.impl;
 import com.wechat.notice.client.WeChatApiClient;
 import com.wechat.notice.config.WeChatAppConfig;
 import com.wechat.notice.config.WeChatNoticeProperties;
-import com.wechat.notice.exception.WeChatNoticeException;
 import com.wechat.notice.message.WeChatMessage;
 import com.wechat.notice.message.WeChatMessageResult;
 import com.wechat.notice.message.enums.MessageType;
@@ -11,7 +10,6 @@ import com.wechat.notice.service.WeChatAppConfigService;
 import com.wechat.notice.service.WeChatNoticeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,10 +17,9 @@ import java.util.List;
 /**
  * 微信通知服务实现
  * 
- * @author WeChat Notice
+ * @author fyf
  */
 @Slf4j
-@Service
 @RequiredArgsConstructor
 public class WeChatNoticeServiceImpl implements WeChatNoticeService {
     
@@ -71,9 +68,7 @@ public class WeChatNoticeServiceImpl implements WeChatNoticeService {
                 log.warn("微信消息发送失败: appName={}, errCode={}, errMsg={}", 
                     appName, result.getErrCode(), result.getErrMsg());
             }
-            
             return result;
-            
         } catch (Exception e) {
             log.error("发送微信消息异常: appName={}, message={}", appName, message, e);
             return WeChatMessageResult.failure(-1, "发送消息异常: " + e.getMessage());

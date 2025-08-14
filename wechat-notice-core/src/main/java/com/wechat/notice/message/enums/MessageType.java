@@ -3,7 +3,7 @@ package com.wechat.notice.message.enums;
 /**
  * 微信消息类型枚举
  * 
- * @author WeChat Notice
+ * @author fyf
  */
 public enum MessageType {
     /**

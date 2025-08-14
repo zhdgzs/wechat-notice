@@ -11,7 +11,6 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.util.EntityUtils;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -21,10 +20,9 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * 微信Token管理器
  * 
- * @author WeChat Notice
+ * @author fyf
  */
 @Slf4j
-@Component
 @RequiredArgsConstructor
 public class WeChatTokenManager {
     

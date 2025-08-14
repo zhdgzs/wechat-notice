@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 /**
  * 微信应用配置实体
  * 
- * @author WeChat Notice
+ * @author fyf
  */
 @Data
 @Builder(toBuilder = true)

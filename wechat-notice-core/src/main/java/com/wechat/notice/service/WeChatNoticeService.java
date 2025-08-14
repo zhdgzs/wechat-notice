@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 微信通知服务接口
  * 
- * @author WeChat Notice
+ * @author fyf
  */
 public interface WeChatNoticeService {
     

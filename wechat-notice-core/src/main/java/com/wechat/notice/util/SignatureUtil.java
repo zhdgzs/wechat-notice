@@ -7,7 +7,7 @@ import java.util.Arrays;
 /**
  * 签名验证工具类
  * 
- * @author WeChat Notice
+ * @author fyf
  */
 public class SignatureUtil {
     

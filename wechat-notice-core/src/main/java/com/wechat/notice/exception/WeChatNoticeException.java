@@ -3,7 +3,7 @@ package com.wechat.notice.exception;
 /**
  * 微信通知自定义异常
  * 
- * @author WeChat Notice
+ * @author fyf
  */
 public class WeChatNoticeException extends RuntimeException {
     

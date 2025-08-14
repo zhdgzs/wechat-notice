@@ -5,7 +5,7 @@ import com.wechat.notice.message.enums.MessageType;
 /**
  * Markdown消息构建器
  * 
- * @author WeChat Notice
+ * @author fyf
  */
 public class MarkdownMessageBuilder extends WeChatMessageBuilder.BaseMessageBuilder<MarkdownMessageBuilder> {
     

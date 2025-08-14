@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 /**
  * XML解析工具类
  * 
- * @author WeChat Notice
+ * @author fyf
  */
 public class XmlUtil {
     

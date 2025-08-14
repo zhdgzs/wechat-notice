@@ -14,7 +14,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.util.EntityUtils;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -24,10 +23,9 @@ import java.util.Map;
 /**
  * 微信API客户端
  * 
- * @author WeChat Notice
+ * @author fyf
  */
 @Slf4j
-@Component
 @RequiredArgsConstructor
 public class WeChatApiClient {
     

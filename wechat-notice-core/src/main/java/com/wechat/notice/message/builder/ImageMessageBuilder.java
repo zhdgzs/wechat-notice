@@ -5,7 +5,7 @@ import com.wechat.notice.message.enums.MessageType;
 /**
  * 图片消息构建器
  * 
- * @author WeChat Notice
+ * @author fyf
  */
 public class ImageMessageBuilder extends WeChatMessageBuilder.BaseMessageBuilder<ImageMessageBuilder> {
     
