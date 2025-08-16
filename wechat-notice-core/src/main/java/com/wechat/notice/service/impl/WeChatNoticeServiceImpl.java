@@ -23,8 +23,19 @@ import java.util.List;
 @RequiredArgsConstructor
 public class WeChatNoticeServiceImpl implements WeChatNoticeService {
     
+    /**
+     * 微信API客户端
+     */
     private final WeChatApiClient apiClient;
+    
+    /**
+     * 微信应用配置服务
+     */
     private final WeChatAppConfigService appConfigService;
+    
+    /**
+     * 微信通知配置属性
+     */
     private final WeChatNoticeProperties properties;
     
     @Override

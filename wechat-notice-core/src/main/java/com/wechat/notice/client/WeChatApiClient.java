@@ -29,13 +29,31 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class WeChatApiClient {
     
+    /**
+     * HTTP客户端
+     */
     private final CloseableHttpClient httpClient;
+    
+    /**
+     * JSON序列化工具
+     */
     private final ObjectMapper objectMapper;
+    
+    /**
+     * Token管理器
+     */
     private final WeChatTokenManager tokenManager;
+    
+    /**
+     * 微信通知配置属性
+     */
     private final WeChatNoticeProperties properties;
     
     /**
      * 获取访问令牌
+     *
+     * @param appConfig 应用配置
+     * @return 访问令牌
      */
     public String getAccessToken(WeChatAppConfig appConfig) {
         return tokenManager.getAccessToken(appConfig);
@@ -43,6 +61,10 @@ public class WeChatApiClient {
     
     /**
      * 发送消息
+     *
+     * @param accessToken 访问令牌
+     * @param message 微信消息对象
+     * @return 消息发送结果
      */
     public WeChatMessageResult sendMessage(String accessToken, WeChatMessage message) {
         String baseUrl = properties.getApi().getBaseUrl();
@@ -80,6 +102,9 @@ public class WeChatApiClient {
     
     /**
      * 构建消息请求体
+     *
+     * @param message 微信消息对象
+     * @return 构建后的请求体Map
      */
     private Map<String, Object> buildMessageRequestBody(WeChatMessage message) {
         Map<String, Object> requestBody = new HashMap<>();

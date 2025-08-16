@@ -15,7 +15,14 @@ import java.util.regex.Pattern;
  */
 public class XmlUtil {
     
+    /**
+     * CDATA节点匹配正则表达式
+     */
     private static final Pattern CDATA_PATTERN = Pattern.compile("<([^>]*)><!\\[CDATA\\[([^\\]]*?)\\]\\]></[^>]*>");
+    
+    /**
+     * 普通元素匹配正则表达式
+     */
     private static final Pattern ELEMENT_PATTERN = Pattern.compile("<([^/>]+)>([^<]*)</[^>]*>");
     
     /**

@@ -20,11 +20,21 @@ import java.util.Map;
  */
 public class CryptoUtil {
     
+    /**
+     * AES加密算法
+     */
     private static final String ALGORITHM = "AES/CBC/NoPadding";
+    
+    /**
+     * JSON序列化工具
+     */
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     
     /**
      * 4个字节的网络字节序bytes数组还原成一个数字
+     *
+     * @param bytesInNetworkOrder 网络字节序的byte数组
+     * @return 还原后的数字
      */
     private static int bytesNetworkOrder2Number(byte[] bytesInNetworkOrder) {
         int sourceNumber = 0;
@@ -37,6 +47,9 @@ public class CryptoUtil {
     
     /**
      * 删除解密后明文的补位字符（PKCS7）
+     *
+     * @param decrypted 解密后的数据
+     * @return 去除补位后的数据
      */
     private static byte[] removePKCS7Padding(byte[] decrypted) {
         int pad = decrypted[decrypted.length - 1];
@@ -118,6 +131,12 @@ public class CryptoUtil {
     
     /**
      * 解密消息内容
+     *
+     * @param encryptedData 加密数据
+     * @param aesKey AES密钥
+     * @param corpId 企业ID
+     * @return 解密后的消息内容
+     * @throws WeChatNoticeException 解密失败时抛出
      */
     private static String decryptMessageContent(String encryptedData, String aesKey, String corpId) {
         try {
@@ -173,6 +192,9 @@ public class CryptoUtil {
     
     /**
      * 将Map转换为回调消息对象
+     *
+     * @param xmlMap XML解析后的Map数据
+     * @return 回调消息对象
      */
     private static WeChatCallbackMessage convertMapToCallbackMessage(Map<String, String> xmlMap) {
         WeChatCallbackMessage message = new WeChatCallbackMessage();

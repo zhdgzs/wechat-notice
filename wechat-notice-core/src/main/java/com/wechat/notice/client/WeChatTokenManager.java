@@ -26,13 +26,31 @@ import java.util.concurrent.ConcurrentHashMap;
 @RequiredArgsConstructor
 public class WeChatTokenManager {
     
+    /**
+     * HTTP客户端
+     */
     private final CloseableHttpClient httpClient;
+    
+    /**
+     * JSON序列化工具
+     */
     private final ObjectMapper objectMapper;
+    
+    /**
+     * 微信通知配置属性
+     */
     private final WeChatNoticeProperties properties;
+    
+    /**
+     * Token缓存，Key为corpId + "_" + agentId
+     */
     private final Map<String, WeChatAppConfig> tokenCache = new ConcurrentHashMap<>();
     
     /**
      * 获取访问令牌（带缓存）
+     *
+     * @param appConfig 应用配置
+     * @return 访问令牌
      */
     public String getAccessToken(WeChatAppConfig appConfig) {
         String cacheKey = appConfig.getCorpId() + "_" + appConfig.getAgentId();
@@ -60,6 +78,9 @@ public class WeChatTokenManager {
     
     /**
      * 检查Token是否有效
+     *
+     * @param config 应用配置
+     * @return true-有效，false-无效
      */
     private boolean isTokenValid(WeChatAppConfig config) {
         return config.getAccessToken() != null && 
@@ -69,6 +90,10 @@ public class WeChatTokenManager {
     
     /**
      * 从微信服务器获取Token
+     *
+     * @param appConfig 应用配置
+     * @return 新的访问令牌
+     * @throws WeChatNoticeException 获取Token失败时抛出
      */
     private String fetchAccessToken(WeChatAppConfig appConfig) {
         String baseUrl = properties.getApi().getBaseUrl();
@@ -104,6 +129,8 @@ public class WeChatTokenManager {
     
     /**
      * 清除Token缓存
+     *
+     * @param appConfig 应用配置
      */
     public void clearTokenCache(WeChatAppConfig appConfig) {
         String cacheKey = appConfig.getCorpId() + "_" + appConfig.getAgentId();

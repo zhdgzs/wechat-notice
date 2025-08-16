@@ -43,6 +43,9 @@ public class WeChatMessageResult {
     
     /**
      * 创建成功结果
+     *
+     * @param msgId 消息ID
+     * @return 成功的消息发送结果
      */
     public static WeChatMessageResult success(String msgId) {
         return WeChatMessageResult.builder()
@@ -54,6 +57,10 @@ public class WeChatMessageResult {
     
     /**
      * 创建失败结果
+     *
+     * @param errCode 错误码
+     * @param errMsg 错误信息
+     * @return 失败的消息发送结果
      */
     public static WeChatMessageResult failure(Integer errCode, String errMsg) {
         return WeChatMessageResult.builder()

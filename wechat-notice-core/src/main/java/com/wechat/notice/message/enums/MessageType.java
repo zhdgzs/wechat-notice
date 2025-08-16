@@ -59,9 +59,22 @@ public enum MessageType {
      */
     TEMPLATE_CARD("template_card", "模板卡片消息");
     
+    /**
+     * 消息类型代码
+     */
     private final String code;
+    
+    /**
+     * 消息类型描述
+     */
     private final String description;
     
+    /**
+     * 构造方法
+     *
+     * @param code 消息类型代码
+     * @param description 消息类型描述
+     */
     MessageType(String code, String description) {
         this.code = code;
         this.description = description;
