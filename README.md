@@ -5,6 +5,10 @@
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-2.x%20%7C%203.x-brightgreen.svg)](https://spring.io/projects/spring-boot)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
+📖 **仓库地址**
+- 🐙 **GitHub**: https://github.com/zhdgzs/wechat-notice
+- 🦊 **Gitee**: https://gitee.com/zhdgzs/wechat-notice
+
 > 🚀 **开箱即用的企业微信消息推送组件**，让应用监控、告警、通知触手可及
 
 基于企业微信应用消息API的轻量级通知组件，支持多种消息类型，完美集成Spring Boot生态。通过企业微信应用发送消息，用户可在微信中直接接收，无需额外安装客户端。
@@ -12,15 +16,6 @@
 ## 演示站
 > https://qynotice.fu520.top/
 
-
-## 🎯 核心优势
-
-- **🔧 开箱即用** - Spring Boot Starter，零配置启动
-- **🎨 消息丰富** - 支持文本、Markdown、图片、卡片等多种消息格式  
-- **⚡ 高性能** - 内置连接池、Token自动管理、故障重试机制
-- **🔒 企业级** - 支持多应用配置、API验证、消息加密
-- **🌐 网络友好** - 可配置代理，适应各种网络环境
-- **📱 移动优先** - 消息直达微信，随时随地接收通知
 
 ## 💡 典型场景
 
