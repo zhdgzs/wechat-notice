@@ -1,6 +1,6 @@
 # WeChat Notice - 企业微信消息通知组件
 
-[![Maven Central](https://img.shields.io/badge/maven--central-1.0.0-blue.svg)](https://search.maven.org/artifact/com.wechat/wechat-notice-spring-boot-starter)
+[![Maven Central](https://img.shields.io/badge/maven--central-1.0.1-blue.svg)](https://search.maven.org/artifact/io.github.zhdgzs/wechat-notice-spring-boot-starter)
 [![Java Version](https://img.shields.io/badge/Java-8%2B-brightgreen.svg)](https://www.oracle.com/java/technologies/)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-2.x%20%7C%203.x-brightgreen.svg)](https://spring.io/projects/spring-boot)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
@@ -42,7 +42,7 @@
 ## 📦 项目结构
 
 ```
-wechat-notice/
+wechat-notice-parent/
 ├── wechat-notice-core/                         # 核心功能模块
 ├── wechat-notice-spring-boot-starter/          # Spring Boot 2.x 启动器  
 ├── wechat-notice-spring-boot-3-starter/        # Spring Boot 3.x 启动器
@@ -65,9 +65,9 @@ wechat-notice/
 
 ```xml
 <dependency>
-    <groupId>com.wechat</groupId>
+    <groupId>io.github.zhdgzs</groupId>
     <artifactId>wechat-notice-spring-boot-starter</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 </dependency>
 ```
 
@@ -75,9 +75,9 @@ wechat-notice/
 
 ```xml
 <dependency>
-    <groupId>com.wechat</groupId>
+    <groupId>io.github.zhdgzs</groupId>
     <artifactId>wechat-notice-spring-boot-3-starter</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 </dependency>
 ```
 
@@ -158,13 +158,28 @@ WeChatMessageResult result = weChatNoticeService.sendMessage(message, "prod");
 #### 卡片消息
 
 ```java
-WeChatMessage message = WeChatMessage.builder()
-    .msgType("textcard")
+WeChatMessage message = WeChatMessageBuilder.textCard()
     .title("任务提醒")
     .description("您有新的任务需要处理")
     .url("http://example.com/task/123")
     .btnTxt("查看任务")
     .toUser("user123")
+    .build();
+
+weChatNoticeService.sendMessage(message);
+```
+
+#### 图文消息
+
+```java
+WeChatMessage message = WeChatMessageBuilder.news()
+    .addArticle("新版本发布", "我们发布了新版本，包含多项功能改进", 
+                "http://example.com/news/1", 
+                "http://example.com/images/news1.jpg")
+    .addArticle("技术分享", "Spring Boot最佳实践分享", 
+                "http://example.com/news/2", 
+                "http://example.com/images/news2.jpg")
+    .toUser("@all")
     .build();
 
 weChatNoticeService.sendMessage(message);
@@ -266,8 +281,8 @@ wechat:
 | 消息类型 | 说明 | 构建器支持 | 示例用途                                  |
 |---------|------|----------|---------------------------------------|
 | text | 文本消息 | ✅ | 简单通知、状态更新                             |
-| textcard | 文本卡片消息 | ✅ | 任务提醒、链接分享、自定义网页              |
-| news | 图文消息 | ✅ | 新闻推送、公告                               |
+| textcard | 文本卡片消息 | ✅ | 任务提醒、链接分享、自定义网页                |
+| news | 图文消息 | ✅ | 新闻推送、公告、多图文支持                      |
 | markdown | Markdown消息 | ❌ | 格式化通知、文档 (微信不支持，可以放到 textcard 中自定义实现) |
 | file | 文件消息 | ❌ | 暂不支持                                  |
 | image | 图片消息 | ❌ | 暂不支持                                  |
@@ -417,9 +432,9 @@ wechat:
 
 ```xml
 <dependency>
-    <groupId>com.wechat</groupId>
+    <groupId>io.github.zhdgzs</groupId>
     <artifactId>wechat-notice-core</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 </dependency>
 ```
 
