@@ -16,6 +16,9 @@
 ## 演示站
 > https://qynotice.fu520.top/
 
+### 效果图
+![](https://github.com/user-attachments/assets/6243fb8a-f82a-4978-94ca-997ecb375af6)
+
 
 ## 💡 典型场景
 
