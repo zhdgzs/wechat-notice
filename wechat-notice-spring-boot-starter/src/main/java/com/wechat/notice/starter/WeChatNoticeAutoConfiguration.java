@@ -50,22 +50,19 @@ public class WeChatNoticeAutoConfiguration {
     @ConditionalOnMissingBean(name = "weChatObjectMapper")
     public ObjectMapper weChatObjectMapper() {
         ObjectMapper mapper = new ObjectMapper();
-        
+
         // 反序列化配置
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         mapper.configure(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT, true);
-        
+
         // 序列化配置
         mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-        
-        // 属性命名策略（下划线转驼峰）
-        mapper.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
-        
+
         log.debug("WeChat ObjectMapper配置完成");
         return mapper;
     }
-    
+
     /**
      * HTTP客户端配置
      */
