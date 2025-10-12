@@ -1,5 +1,10 @@
 package com.wechat.notice.example.controller;
 
+import com.wechat.notice.example.dto.SendTextRequest;
+import com.wechat.notice.example.dto.SendMarkdownRequest;
+import com.wechat.notice.example.dto.SendNewsRequest;
+import com.wechat.notice.example.dto.SendTextCardRequest;
+import com.wechat.notice.example.dto.SendToAllRequest;
 import com.wechat.notice.message.WeChatMessage;
 import com.wechat.notice.message.WeChatMessageResult;
 import com.wechat.notice.message.builder.WeChatMessageBuilder;
@@ -20,20 +25,23 @@ import org.springframework.web.bind.annotation.*;
 public class NotificationController {
     
     private final WeChatNoticeService weChatNoticeService;
-    
+
+    @PostMapping("/send/text2")
+    public String sendText2(@RequestBody String request) {
+        System.out.println( request);
+        return "";
+    }
     /**
      * 发送简单文本消息
      */
     @PostMapping("/send/text")
-    public String sendText(@RequestParam("content") String content, 
-                          @RequestParam("toUser") String toUser,
-                          @RequestParam(value = "appName", required = false) String appName) {
+    public String sendText(@RequestBody SendTextRequest request) {
         try {
             WeChatMessageResult result;
-            if (appName != null) {
-                result = weChatNoticeService.sendText(content, toUser, appName);
+            if (request.getAppName() != null) {
+                result = weChatNoticeService.sendText(request.getContent(), request.getToUser(), request.getAppName());
             } else {
-                result = weChatNoticeService.sendText(content, toUser);
+                result = weChatNoticeService.sendText(request.getContent(), request.getToUser());
             }
             
             if (result.isSuccess()) {
@@ -51,15 +59,13 @@ public class NotificationController {
      * 发送Markdown消息
      */
     @PostMapping("/send/markdown")
-    public String sendMarkdown(@RequestParam("content") String content, 
-                              @RequestParam("toUser") String toUser,
-                              @RequestParam(value = "appName", required = false) String appName) {
+    public String sendMarkdown(@RequestBody SendMarkdownRequest request) {
         try {
             WeChatMessageResult result;
-            if (appName != null) {
-                result = weChatNoticeService.sendMarkdown(content, toUser, appName);
+            if (request.getAppName() != null) {
+                result = weChatNoticeService.sendMarkdown(request.getContent(), request.getToUser(), request.getAppName());
             } else {
-                result = weChatNoticeService.sendMarkdown(content, toUser);
+                result = weChatNoticeService.sendMarkdown(request.getContent(), request.getToUser());
             }
             
             if (result.isSuccess()) {
@@ -77,21 +83,16 @@ public class NotificationController {
      * 发送图文消息
      */
     @PostMapping("/send/news")
-    public String sendNews(@RequestParam("title") String title,
-                          @RequestParam("description") String description,
-                          @RequestParam("url") String url,
-                          @RequestParam("picUrl") String picUrl,
-                          @RequestParam("toUser") String toUser,
-                          @RequestParam(value = "appName", required = false) String appName) {
+    public String sendNews(@RequestBody SendNewsRequest request) {
         try {
             WeChatMessage message = WeChatMessageBuilder.news()
-                .addArticle(title, description, url, picUrl)
-                .toUser(toUser)
+                .addArticle(request.getTitle(), request.getDescription(), request.getUrl(), request.getPicUrl())
+                .toUser(request.getToUser())
                 .build();
                 
             WeChatMessageResult result;
-            if (appName != null) {
-                result = weChatNoticeService.sendMessage(message, appName);
+            if (request.getAppName() != null) {
+                result = weChatNoticeService.sendMessage(message, request.getAppName());
             } else {
                 result = weChatNoticeService.sendMessage(message);
             }
@@ -111,22 +112,18 @@ public class NotificationController {
      * 发送TextCard消息
      */
     @PostMapping("/send/textcard")
-    public String sendTextCard(@RequestParam("title") String title,
-                              @RequestParam("description") String description,
-                              @RequestParam("url") String url,
-                              @RequestParam("toUser") String toUser,
-                              @RequestParam(value = "appName", required = false) String appName) {
+    public String sendTextCard(@RequestBody SendTextCardRequest request) {
         try {
             WeChatMessage message = WeChatMessageBuilder.textCard()
-                .title(title)
-                .description(description)
-                .url(url)
-                .toUser(toUser)
+                .title(request.getTitle())
+                .description(request.getDescription())
+                .url(request.getUrl())
+                .toUser(request.getToUser())
                 .build();
                 
             WeChatMessageResult result;
-            if (appName != null) {
-                result = weChatNoticeService.sendMessage(message, appName);
+            if (request.getAppName() != null) {
+                result = weChatNoticeService.sendMessage(message, request.getAppName());
             } else {
                 result = weChatNoticeService.sendMessage(message);
             }
@@ -146,17 +143,16 @@ public class NotificationController {
      * 发送全员通知
      */
     @PostMapping("/send/all")
-    public String sendToAll(@RequestParam("content") String content,
-                           @RequestParam(value = "appName", required = false) String appName) {
+    public String sendToAll(@RequestBody SendToAllRequest request) {
         try {
             WeChatMessage message = WeChatMessageBuilder.text()
-                .content(content)
+                .content(request.getContent())
                 .toAll()
                 .build();
                 
             WeChatMessageResult result;
-            if (appName != null) {
-                result = weChatNoticeService.sendMessage(message, appName);
+            if (request.getAppName() != null) {
+                result = weChatNoticeService.sendMessage(message, request.getAppName());
             } else {
                 result = weChatNoticeService.sendMessage(message);
             }

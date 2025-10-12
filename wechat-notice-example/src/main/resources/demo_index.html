@@ -260,16 +260,35 @@
         <h1>🚀 WeChat Notice</h1>
         <p>企业微信消息通知组件演示站</p>
     </div>
+    <div class="container">
+        <!-- 其他内容保持不变 -->
 
-    <div class="qr-section">
-        <div class="qr-content">
-            <h2>📱 微信扫码右侧二维码，加入企业并验证身份，即可体验</h2>
-            <p>扫码关注企业微信应用，接收推送消息。支持文本、卡片、图文等多种消息格式</p><br/>
-            <p>仅用于演示，请勿发送过多测试消息，退出即可不再接收消息。建议体验完之后退出企业</p>
+        <div class="qr-section">
+            <div class="qr-content">
+                <h2>📱 微信扫码右侧二维码，加入企业并验证身份，即可体验</h2>
+                <p>扫码关注企业微信应用，接收推送消息。支持文本、卡片、图文等多种消息格式</p><br/>
+                <p style="color: red;">仅用于演示，请勿发送过多测试消息，必须要加入企业并验证身份才能在微信接收到消息，建议体验完之后退出企业。</p>
+            </div>
+
+            <div class="qr-image">
+                <div class="qr-placeholder">
+                    <img src="./qrcode_258.png" alt="应用二维码">
+                </div>
+            </div>
+
         </div>
-        <div class="qr-image">
-            <div class="qr-placeholder">
-                <img src="./qrcode.png" alt="应用二维码">
+        <div class="qr-section">
+            <!-- 新增的二维码部分 -->
+            <div class="qr-content">
+                <h2>📱 右侧二维码失效？请扫描下方二维码添加微信</h2>
+                <p>如果上方提供的二维码无法使用，请通过扫描下面的二维码添加联系人获取帮助。</p>
+            </div>
+
+            <div class="qr-image">
+                <div class="qr-placeholder" style="border-color: #5cb85c; background: linear-gradient(135deg, #5cb85c10 0%, #5cb85c10 100%);">
+                    <!-- 更换二维码图片路径或直接提供二维码图片 -->
+                    <img src="./wechat_qrcode2.jpg" alt="新二维码">
+                </div>
             </div>
         </div>
     </div>
@@ -357,19 +376,15 @@
     // 基础配置
     const API_BASE = '/api/notification';
 
-    // 通用请求函数
+    // 通用请求函数 - 修改为发送JSON格式数据
     async function sendRequest(url, data) {
         try {
-            const formData = new FormData();
-            Object.keys(data).forEach(key => {
-                if (data[key] !== '') {
-                    formData.append(key, data[key]);
-                }
-            });
-
             const response = await fetch(url, {
                 method: 'POST',
-                body: formData
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
             });
 
             if (!response.ok) {
